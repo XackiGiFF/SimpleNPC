@@ -139,7 +139,7 @@ class NPCManager {
         }
 
         $entity->spawnToAll();
-        $player->sendMessage(TextFormat::GREEN . "NPC " . ucfirst($type) . " успешно создан! ID: " . $entity->getId());
+        $player->sendMessage(TextFormat::GREEN . "NPC " . ucfirst($type) . " created successfully! ID: " . $entity->getId());
 
         (new SNPCCreationEvent($entity, $player))->call();
 

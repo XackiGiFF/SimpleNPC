@@ -35,9 +35,9 @@ class FormManager {
     use SingletonTrait;
 
     public function sendUIForm(Player $sender): void {
-        $form = new SimpleForm("Менеджер NPC");
-        $simpleForm = new SimpleForm("Менеджер NPC");
-        $cusForm = new CustomForm("Менеджер NPC");
+        $form = new SimpleForm("Manage NPC");
+        $simpleForm = new SimpleForm("Manage NPC");
+        $cusForm = new CustomForm("Manage NPC");
 
         $plugin = SimpleNPC::getInstance();
 
@@ -48,22 +48,22 @@ class FormManager {
                         case "spawnNPC":
                             foreach (SimpleNPC::getInstance()->getRegisteredNPC() as $npcName => $saveNames) {
                                 $simpleForm->addButton(new Button(ucfirst(str_replace(["_snpc", "_"], [" NPC", " "], $npcName)), null, function(Player $player) use ($saveNames, $npcName, $cusForm) {
-                                    $dropdown = new Dropdown("Выберите NPC:");
+                                    $dropdown = new Dropdown("Selected NPC:");
                                     $dropdown->addOption(new Option(str_replace("_snpc", "", $npcName), ucfirst(str_replace(["_snpc", "_"], [" NPC", " "], $npcName))));
                                     $cusForm->addElement("type", $dropdown);
 
-                                    $cusForm->addElement("nametag", new Input("NPC Тег: [string]\n" . 'Подсказка: Используйте (" ") если в имени есть пробелы'));
+                                    $cusForm->addElement("nametag", new Input("NPC Nametag: [string]\n" . 'Note: Use (" ") if nametag has space'));
                                     if (is_a($saveNames[0], CustomHuman::class, true)) {
-                                        $cusForm->addElement("skin", new Input("NPC Ссылка на скин (PNG) URL: [null/string]"));
+                                        $cusForm->addElement("skin", new Input("NPC Skin URL: [null/string]"));
                                     }
                                     $player->sendForm($cusForm);
                                 }));
                             }
-                            $simpleForm->setHeaderText("Выберите NPC:");
+                            $simpleForm->setHeaderText("Select NPC:");
                             $sender->sendForm($simpleForm);
                             break;
                         case "editNPC":
-                            $cusForm->addElement("snpcid_edit", new Input("Введите NPC ID"));
+                            $cusForm->addElement("snpcid_edit", new Input("Enter the NPC ID"));
                             $sender->sendForm($cusForm);
                             break;
                         case "npcList":
@@ -76,11 +76,11 @@ class FormManager {
                                         return $entity instanceof BaseNPC or $entity instanceof CustomHuman;
                                     }));
 
-                                    $list .= "§cNPC Список и локации: (" . count($entityNames) . ")\n §f- " . implode("\n - ", $entityNames);
+                                    $list .= "§cNPC List and Location: (" . count($entityNames) . ")\n §f- " . implode("\n - ", $entityNames);
                                 }
 
                                 $simpleForm->setHeaderText($list);
-                                $simpleForm->addButton(new Button("Напечатать", null, function(Player $sender) use ($list) {
+                                $simpleForm->addButton(new Button("Print", null, function(Player $sender) use ($list) {
                                     $sender->sendMessage($list);
                                 }));
                                 $sender->sendForm($simpleForm);
@@ -106,7 +106,7 @@ class FormManager {
             }
 
             if ($type == "") {
-                $player->sendMessage(TextFormat::YELLOW . "Пожалуйтса, введите валидный тип NPC");
+                $player->sendMessage(TextFormat::YELLOW . "Please enter a valid NPC type");
                 return;
             }
 
@@ -118,11 +118,11 @@ class FormManager {
         $plugin = SimpleNPC::getInstance();
         $entity = $plugin->getServer()->getWorldManager()->findEntity($entityId);
 
-        $customForm = new CustomForm("Менеджер NPC");
-        $simpleForm = new SimpleForm("Менеджер NPC");
+        $customForm = new CustomForm("Manage NPC");
+        $simpleForm = new SimpleForm("Manage NPC");
 
         if ($entity instanceof BaseNPC || $entity instanceof CustomHuman) {
-            $editUI = new SimpleForm("Менеджер NPC", "§aID:§2 $args[1]\n§aКласс: §2" . get_class($entity) . "\n§aТег: §2" . $entity->getNameTag() . "\n§aПозиция: §2" . $entity->getLocation()->getFloorX() . "/" . $entity->getLocation()->getFloorY() . "/" . $entity->getLocation()->getFloorZ());
+            $editUI = new SimpleForm("Manage NPC", "§aID:§2 $args[1]\n§aClass: §2" . get_class($entity) . "\n§aNametag: §2" . $entity->getNameTag() . "\n§aPosition: §2" . $entity->getLocation()->getFloorX() . "/" . $entity->getLocation()->getFloorY() . "/" . $entity->getLocation()->getFloorZ());
 
             foreach (ButtonManager::getInstance()->getEditButtons() as $button) {
                 if (empty($button["element"]) && !empty($button["additional"]) && $button["additional"]["button"]["force"]) {
@@ -131,71 +131,71 @@ class FormManager {
                             case "showNametag":
                                 $entity->setNameTagAlwaysVisible();
                                 $entity->setNameTagVisible();
-                                $sender->sendMessage(TextFormat::GREEN . "Тег NPC теперь отображается (NPC ID: " . $entity->getId() . ")");
+                                $sender->sendMessage(TextFormat::GREEN . "Successfully showing NPC nametag (NPC ID: " . $entity->getId() . ")");
                                 break;
                             case "hideNametag":
                                 $entity->setNameTagAlwaysVisible(false);
                                 $entity->setNameTagVisible(false);
-                                $sender->sendMessage(TextFormat::GREEN . "Тег NPC теперь скрыт (NPC ID: " . $entity->getId() . ")");
+                                $sender->sendMessage(TextFormat::GREEN . "Successfully remove NPC nametag (NPC ID: " . $entity->getId() . ")");
                                 break;
                             case "disableRotate":
                                 $entity->setCanLookToPlayers(false);
-                                $sender->sendMessage(TextFormat::GREEN . "Теперь NPC не поворачивается (NPC ID: " . $entity->getId() . ")");
+                                $sender->sendMessage(TextFormat::GREEN . "Successfully disable npc rotate (NPC ID: " . $entity->getId() . ")");
                                 break;
                             case "EnableRotation":
                                 $entity->setCanLookToPlayers(true);
-                                $sender->sendMessage(TextFormat::GREEN . "Теперь NPC может поворачиваться (NPC ID: " . $entity->getId() . ")");
+                                $sender->sendMessage(TextFormat::GREEN . "Successfully enable npc rotate (NPC ID: " . $entity->getId() . ")");
                                 break;
                             case "setClickEmote":
-                                $clickEmoteUI = new SimpleForm("Редактировать клик-эмоцию", "Пожалуйста, выберите клик-эмоцию.");
+                                $clickEmoteUI = new SimpleForm("Edit Click-Emote", "Please choose a new click-emote.");
                                 if ($entity->getClickEmoteId() !== null) $clickEmoteUI->addButton(new Button(
-                                    "§cУдалить клик-эмоцию", null,
+                                    "§cRemove Click-Emote", null,
                                     function (Player $player) use ($entity) {
                                         $entity->setClickEmoteId(null);
-                                        $player->sendMessage("§aКлик-эмоция успешно удалена у NPC ID: " . $entity->getId());
+                                        $player->sendMessage("§aSuccessfully removed the click-emote of NPC ID: " . $entity->getId());
                                     }));
                                 foreach (EmoteIds::EMOTES as $emoteName => $emoteId)
                                     $clickEmoteUI->addButton(new Button($emoteName, null,
                                         function (Player $player) use ($entity, $emoteId, $emoteName) {
                                             $entity->setClickEmoteId($emoteId);
-                                            $player->sendMessage("§aДля NPC ID: " . $entity->getId() . " выставлена клик-эмоция §7" . $emoteName);
+                                            $player->sendMessage("§aSuccessfully set the click-emote of NPC ID: " . $entity->getId() . " to §7" . $emoteName);
                                         }));
                                 $sender->sendForm($clickEmoteUI);
                                 break;
                             case "setEmote":
-                                $emoteUI = new SimpleForm("Редактировать эмоцию", "Пожалуйста, выберете эмоцию.");
+                                $emoteUI = new SimpleForm("Edit Emote", "Please choose a new emote.");
                                 if ($entity->getEmoteId() !== null) $emoteUI->addButton(new Button(
-                                    "§cУдалить эмоцию", null,
+                                    "§cRemove Emote", null,
                                     function (Player $player) use ($entity) {
                                         $entity->setEmoteId(null);
-                                        $player->sendMessage("§aЭмоция успешно удалена у NPC ID: " . $entity->getId());
+                                        $player->sendMessage("§aSuccessfully removed the emote of NPC ID: " . $entity->getId());
                                     }));
                                 foreach (EmoteIds::EMOTES as $emoteName => $emoteId)
                                     $emoteUI->addButton(new Button($emoteName, null,
                                         function (Player $player) use ($entity, $emoteId, $emoteName) {
                                             $entity->setEmoteId($emoteId);
-                                            $player->sendMessage("§aДля NPC ID: " . $entity->getId() . " выставлена эмоция §7" . $emoteName);
+                                            $player->sendMessage("§aSuccessfully set the emote of NPC ID: " . $entity->getId() . " to §7" . $emoteName);
                                         }));
                                 $sender->sendForm($emoteUI);
                                 break;
                             case "setArmor":
                                 if ($entity instanceof CustomHuman) {
                                     $entity->applyArmorFrom($sender);
-                                    $sender->sendMessage(TextFormat::GREEN . "Вы установили свою броню на NPC ID: " . $entity->getId());
+                                    $sender->sendMessage(TextFormat::GREEN . "Successfully set your armor to NPC ID: " . $entity->getId());
                                 } else {
-                                    $sender->sendMessage(TextFormat::RED . "Только человекоподобный NPC может носить броню!");
+                                    $sender->sendMessage(TextFormat::RED . "Only human npc can wear armor");
                                 }
                                 break;
                             case "setHeld":
                                 if ($entity instanceof CustomHuman) {
                                     if ($sender->getInventory()->getItemInHand()->equals(VanillaItems::AIR(), false ,false)) {
-                                        $sender->sendMessage(TextFormat::RED . "Пожалуйста, держите предмет в руке!");
+                                        $sender->sendMessage(TextFormat::RED . "Please hold the item in your hand");
                                     } else {
                                         $entity->sendHeldItemFrom($sender);
-                                        $sender->sendMessage(TextFormat::GREEN . "Вы вложили в руку '" . $sender->getInventory()->getItemInHand()->getVanillaName() . "' для NPC ID: " . $entity->getId());
+                                        $sender->sendMessage(TextFormat::GREEN . "Successfully set held item '" . $sender->getInventory()->getItemInHand()->getVanillaName() . "' to npc ID: " . $entity->getId());
                                     }
                                 } else {
-                                    $sender->sendMessage(TextFormat::RED . "Только человекоподобный NPC может держать предметы в руках!");
+                                    $sender->sendMessage(TextFormat::RED . "Only human npc can hold item");
                                 }
                                 break;
                         }
@@ -212,10 +212,10 @@ class FormManager {
                         if ($button["additional"]["button"]["text"] === null) {
                             switch ($button["additional"]["button"]["function"]) {
                                 case "commandList":
-                                    $cmds = "Этот NPC (ID: {$entity->getId()}) пока без команд.";
+                                    $cmds = "This NPC (ID: {$entity->getId()}) does not have any commands.";
                                     $commands = $entity->getCommandManager()->getAll();
                                     if (!empty($commands)) {
-                                        $cmds = TextFormat::AQUA . "NPC ID: {$entity->getId()} списиок команд (" . count($commands) . ")\n";
+                                        $cmds = TextFormat::AQUA . "NPC ID: {$entity->getId()} Command list (" . count($commands) . ")\n";
 
                                         foreach ($commands as $cmd) {
                                             $cmds .= TextFormat::GREEN . "- " . $cmd . "\n";
@@ -223,25 +223,25 @@ class FormManager {
                                     }
 
                                     $simpleForm->setHeaderText($cmds);
-                                    $simpleForm->addButton(new Button("Напечатать", null, function(Player $sender) use ($cmds) {
+                                    $simpleForm->addButton(new Button("Print", null, function(Player $sender) use ($cmds) {
                                         $sender->sendMessage($cmds);
                                     }));
-                                    $simpleForm->addButton(new Button("< Назад", null, function(Player $sender) use ($editUI) {
+                                    $simpleForm->addButton(new Button("< Back", null, function(Player $sender) use ($editUI) {
                                         $sender->sendForm($editUI);
                                     }));
                                     $sender->sendForm($simpleForm);
                                     break;
                                 case "teleport":
-                                    $simpleForm->addButton(new Button("Вас к NPC", null, function(Player $sender) use ($entity): void {
+                                    $simpleForm->addButton(new Button("You to NPC", null, function(Player $sender) use ($entity): void {
                                         $sender->teleport($entity->getLocation());
-                                        $sender->sendMessage(TextFormat::GREEN . "Перемещено!");
+                                        $sender->sendMessage(TextFormat::GREEN . "Teleported!");
                                     }));
-                                    $simpleForm->addButton(new Button("NPC к Вам", null, function(Player $sender) use ($entity): void {
+                                    $simpleForm->addButton(new Button("NPC to You", null, function(Player $sender) use ($entity): void {
                                         $entity->teleport($sender->getLocation());
                                         if ($entity instanceof WalkingHuman) {
                                             $entity->randomPosition = $entity->getLocation()->asVector3();
                                         }
-                                        $sender->sendMessage(TextFormat::GREEN . "Перемещено!");
+                                        $sender->sendMessage(TextFormat::GREEN . "Teleported!");
                                     }));
 
                                     $sender->sendForm($simpleForm);
@@ -286,28 +286,28 @@ class FormManager {
 
                 if ($rmcmd !== null) {
                     if (!in_array($rmcmd, $entity->getCommandManager()->getAll(), true)) {
-                        $player->sendMessage(TextFormat::RED . "Команды '$rmcmd' нет в списке команд у NPC.");
+                        $player->sendMessage(TextFormat::RED . "Command '$rmcmd' not found in command list.");
                         return;
                     }
 
                     $entity->getCommandManager()->remove($rmcmd);
-                    $player->sendMessage(TextFormat::GREEN . "Команда '$rmcmd' успешно удалена у (NPC ID: " . $entity->getId() . ")");
+                    $player->sendMessage(TextFormat::GREEN . "Successfully remove command '$rmcmd' (NPC ID: " . $entity->getId() . ")");
                 } elseif ($addcmd !== null) {
                     if (in_array($addcmd, $entity->getCommandManager()->getAll(), true)) {
-                        $player->sendMessage(TextFormat::RED . "Команда '$addcmd' уже добавлена.");
+                        $player->sendMessage(TextFormat::RED . "Command '$addcmd' has already been added.");
                         return;
                     }
 
                     $entity->getCommandManager()->add($addcmd);
-                    $player->sendMessage(TextFormat::GREEN . "Команда '$addcmd' успешно добавлена для (NPC ID: " . $entity->getId() . ")");
+                    $player->sendMessage(TextFormat::GREEN . "Successfully added command '$addcmd' (NPC ID: " . $entity->getId() . ")");
                 } elseif ($chnmtd !== null) {
-                    $player->sendMessage(TextFormat::GREEN . "Вы успешно сменили тег с '{$entity->getNameTag()}' на '$chnmtd' для (NPC ID: " . $entity->getId() . ")");
+                    $player->sendMessage(TextFormat::GREEN . "Successfully change npc nametag from '{$entity->getNameTag()}' to '$chnmtd'  (NPC ID: " . $entity->getId() . ")");
 
                     $entity->setNameTag(str_replace("{line}", "\n", $chnmtd));
                     $entity->setNameTagAlwaysVisible();
                 } elseif ($cape !== null) {
                     if (!$entity instanceof CustomHuman) {
-                        $player->sendMessage(TextFormat::RED . "Только человекоподобный NPC может носить плащ!");
+                        $player->sendMessage(TextFormat::RED . "Only human NPC can change cape!");
                         return;
                     }
 
@@ -318,14 +318,14 @@ class FormManager {
                         $entity->setSkin($capeSkin);
                         $entity->sendSkin();
 
-                        $player->sendMessage(TextFormat::GREEN . "Вы успешно добавили плащ для (NPC ID: " . $entity->getId() . ")");
+                        $player->sendMessage(TextFormat::GREEN . "Successfully change npc cape (NPC ID: " . $entity->getId() . ")");
                         return;
                     }
 
                     $plugin->getServer()->getAsyncPool()->submitTask(new URLToCapeTask($cape, $plugin->getDataFolder(), $entity, $player->getName()));
                 } elseif ($skin !== null) {
                     if (!$entity instanceof CustomHuman) {
-                        $player->sendMessage(TextFormat::RED . "Только у человекоподобного NPC может быть сменен скин!");
+                        $player->sendMessage(TextFormat::RED . "Only human NPC can change skin!");
                         return;
                     }
 
@@ -335,34 +335,34 @@ class FormManager {
                         $entity->setSkin($pSkin->getSkin());
                         $entity->sendSkin();
 
-                        $player->sendMessage(TextFormat::GREEN . "Вы успешно сменили скин у (NPC ID: " . $entity->getId() . ")");
+                        $player->sendMessage(TextFormat::GREEN . "Successfully change npc skin (NPC ID: " . $entity->getId() . ")");
                         return;
                     }
 
                     if (!preg_match('/https?:\/\/[^?]*\.png(?![\w.\-_])/', $skin)) {
-                        $player->sendMessage(TextFormat::RED . "Неправильный формат скина! (Только PNG поддерживается, ссылка только через https://)");
+                        $player->sendMessage(TextFormat::RED . "Invalid skin url file format! (Only PNG Supported)");
                         return;
                     }
 
                     $plugin->getServer()->getAsyncPool()->submitTask(new URLToSkinTask($player->getName(), $plugin->getDataFolder(), $skin, $entity));
-                    $player->sendMessage(TextFormat::GREEN . "Вы успешно сменили скин у (NPC ID: " . $entity->getId() . ")");
+                    $player->sendMessage(TextFormat::GREEN . "Successfully change npc skin (NPC ID: " . $entity->getId() . ")");
                 } elseif ($scale !== null) {
                     if ((float)$scale <= 0) {
-                        $player->sendMessage("Размер должен быть больше, чем 0 :)");
+                        $player->sendMessage("Scale must be greater than 0");
                         return;
                     }
 
                     $entity->setScale((float)$scale);
 
-                    $player->sendMessage(TextFormat::GREEN . "Вы успешно изменили размер на $scale для (NPC ID: " . $entity->getId() . ")");
+                    $player->sendMessage(TextFormat::GREEN . "Successfully change npc size to $scale (NPC ID: " . $entity->getId() . ")");
                 } else {
-                    $player->sendMessage(TextFormat::RED . "Пожалуйста, введите действительное значение!");
+                    $player->sendMessage(TextFormat::RED . "Please enter a valid value!");
                 }
             });
 
             $sender->sendForm($editUI);
             return;
         }
-        $sender->sendMessage(TextFormat::YELLOW . "NPC с ID: " . $args[1] . " не найден!");
+        $sender->sendMessage(TextFormat::YELLOW . "SimpleNPC NPC with ID: " . $args[1] . " not found!");
     }
 }
