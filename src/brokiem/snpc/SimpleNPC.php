@@ -16,7 +16,7 @@ use brokiem\snpc\entity\CustomHuman;
 use brokiem\snpc\entity\WalkingHuman;
 use brokiem\snpc\manager\NPCManager;
 use brokiem\snpc\task\DoEmoteTask;
-use EasyUI\Form;
+use brokiem\snpc\libs\EasyUI\Form;
 use pocketmine\entity\Entity;
 use pocketmine\entity\EntityDataHelper;
 use pocketmine\entity\EntityFactory;

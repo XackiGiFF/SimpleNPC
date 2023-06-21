@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace brokiem\snpc\manager\form;
 
-use EasyUI\element\Input;
+use brokiem\snpc\libs\EasyUI\element\Input;
 use pocketmine\utils\SingletonTrait;
 
 class ButtonManager {
