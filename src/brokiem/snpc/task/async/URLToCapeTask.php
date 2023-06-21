@@ -74,12 +74,12 @@ class URLToCapeTask extends AsyncTask {
         }
 
         if ($this->getResult() === null) {
-            $player->sendMessage(TextFormat::RED . "Set Cape failed! Invalid link detected (the link doesn't contain images)");
+            $player->sendMessage(TextFormat::RED . "Установить плащ не удалось! Обнаружена недействительная ссылка (ссылка не содержит изображений)");
             return;
         }
 
         if (strlen($this->getResult()) !== 8192) {
-            $player->sendMessage(TextFormat::RED . "Set Cape failed! Invalid cape detected [bytes=" . strlen($this->getResult()) . "] [supported=8192]");
+            $player->sendMessage(TextFormat::RED . "Установить плащ не удалось! Обнаружен неверный плащ [bytes=" . strlen($this->getResult()) . "] [supported=8192].");
             return;
         }
 
@@ -87,6 +87,6 @@ class URLToCapeTask extends AsyncTask {
         $npc->setSkin($capeSkin);
         $npc->sendSkin();
 
-        $player->sendMessage(TextFormat::GREEN . "Successfull set cape to npc (ID: " . $npc->getId() . ")");
+        $player->sendMessage(TextFormat::GREEN . "Успешная установка плаща на нпс (ID: " . $npc->getId() . ")");
     }
 }

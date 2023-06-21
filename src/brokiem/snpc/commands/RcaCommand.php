@@ -31,7 +31,7 @@ class RcaCommand extends Command implements PluginOwned {
         }
 
         if (count($args) < 2) {
-            $sender->sendMessage(TextFormat::YELLOW . "Please enter a player and a command.");
+            $sender->sendMessage(TextFormat::YELLOW . "Пожалуйста, укажите игрока и команду.");
             return true;
         }
 
@@ -41,7 +41,7 @@ class RcaCommand extends Command implements PluginOwned {
             return true;
         }
 
-        $sender->sendMessage(TextFormat::RED . "Player not found.");
+        $sender->sendMessage(TextFormat::RED . "Игрок не найден.");
         return true;
     }
 

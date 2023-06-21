@@ -43,13 +43,13 @@ class SimpleNPC extends PluginBase {
 
     protected function onEnable(): void {
         if (!class_exists(Form::class)) {
-            $this->getLogger()->alert("UI/Form dependency not found! Please download this plugin from poggit or install the UI/Form virion. Disabling plugin...");
+            $this->getLogger()->alert("UI/Form зависимость не найдена! Пожалуйста, загрузите этот плагин из poggit или установите UI/Form virion. Отключение плагина...");
             $this->getServer()->getPluginManager()->disablePlugin($this);
             return;
         }
 
         if (self::IS_DEV) {
-            $this->getLogger()->warning("You are using the Development version of SimpleNPC. The plugin will experience errors, crashes, or bugs. Only use this version if you are testing. Don't use the Dev version in production!");
+            $this->getLogger()->warning("Вы используете версию SimpleNPC для разработки. В плагине могут возникать ошибки, сбои или баги. Используйте эту версию только для тестирования. Не используйте версию Dev в производстве!");
         }
 
         self::setInstance($this);
@@ -104,8 +104,8 @@ class SimpleNPC extends PluginBase {
 
     public function initConfiguration(): void {
         if ($this->getConfig()->get("config-version", 1) !== 3) {
-            $this->getLogger()->notice("Your configuration file is outdated, updating the config.yml...");
-            $this->getLogger()->notice("The old configuration file can be found at config.old.yml");
+            $this->getLogger()->notice("Ваш файл конфигурации устарел, обновите config.yml...");
+            $this->getLogger()->notice("Старый файл конфигурации можно найти по адресу config.old.yml");
 
             rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config.old.yml");
         }

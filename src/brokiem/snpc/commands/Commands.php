@@ -37,12 +37,12 @@ class Commands extends Command implements PluginOwned {
             switch (strtolower($args[0])) {
                 case "ui":
                     if (!$sender->hasPermission("simplenpc.ui")) {
-                        $sender->sendMessage(TextFormat::RED . "You don't have permission");
+                        $sender->sendMessage(TextFormat::RED . "У тебя нет разрешения");
                         return true;
                     }
 
                     if (!$sender instanceof Player) {
-                        $sender->sendMessage("Only player can run this command");
+                        $sender->sendMessage("Только игрок может выполнять эту команду");
                         return true;
                     }
 
@@ -50,22 +50,22 @@ class Commands extends Command implements PluginOwned {
                     break;
                 case "reload":
                     if (!$sender->hasPermission("simplenpc.reload")) {
-                        $sender->sendMessage(TextFormat::RED . "You don't have permission");
+                        $sender->sendMessage(TextFormat::RED . "У тебя нет разрешения");
                         return true;
                     }
 
                     $plugin->initConfiguration();
-                    $sender->sendMessage(TextFormat::GREEN . "SimpleNPC Config reloaded successfully!");
+                    $sender->sendMessage(TextFormat::GREEN . "Конфигурация SimpleNPC успешно перезагружена!");
                     break;
                 case "id":
                     if (!$sender->hasPermission("simplenpc.id")) {
-                        $sender->sendMessage(TextFormat::RED . "You don't have permission");
+                        $sender->sendMessage(TextFormat::RED . "У тебя нет разрешения");
                         return true;
                     }
 
                     if (!isset($plugin->idPlayers[$sender->getName()])) {
                         $plugin->idPlayers[$sender->getName()] = true;
-                        $sender->sendMessage(TextFormat::DARK_GREEN . "Hit the npc that you want to see the ID");
+                        $sender->sendMessage(TextFormat::DARK_GREEN . "Ударьте по npc, у которого вы хотите увидеть ID");
                     } else {
                         unset($plugin->idPlayers[$sender->getName()]);
                         $sender->sendMessage(TextFormat::GREEN . "Tap to get NPC ID has been canceled");
@@ -79,7 +79,7 @@ class Commands extends Command implements PluginOwned {
                     }
 
                     if (!$sender->hasPermission("simplenpc.spawn")) {
-                        $sender->sendMessage(TextFormat::RED . "You don't have permission");
+                        $sender->sendMessage(TextFormat::RED . "У тебя нет разрешения");
                         return true;
                     }
 
@@ -88,7 +88,7 @@ class Commands extends Command implements PluginOwned {
                             if (is_a(SimpleNPC::getInstance()->getRegisteredNPC()[strtolower($args[1]) . "_snpc"][0], CustomHuman::class, true)) {
                                 if (isset($args[3])) {
                                     if (!preg_match('/https?:\/\/[^?]*\.png(?![\w.\-_])/', $args[3])) {
-                                        $sender->sendMessage(TextFormat::RED . "Invalid skin url file format! (Only PNG Supported)");
+                                        $sender->sendMessage(TextFormat::RED . "Неверный формат файла skin url! (Поддерживается только PNG)");
                                         return true;
                                     }
 
@@ -101,10 +101,10 @@ class Commands extends Command implements PluginOwned {
                                         }
                                     }
 
-                                    $sender->sendMessage(TextFormat::DARK_GREEN . "Creating " . ucfirst($args[1]) . " NPC with nametag $args[2] for you...");
+                                    $sender->sendMessage(TextFormat::DARK_GREEN . "Создание " . ucfirst($args[1]) . " NPC с тегом $args[2] для вас...");
                                     return true;
                                 } elseif (isset($args[2])) {
-                                    $sender->sendMessage(TextFormat::DARK_GREEN . "Creating " . ucfirst($args[1]) . " NPC with nametag $args[2] for you...");
+                                    $sender->sendMessage(TextFormat::DARK_GREEN . "Создание " . ucfirst($args[1]) . " NPC с тегом $args[2] для вас...");
                                     NPCManager::getInstance()->spawnNPC(strtolower($args[1]) . "_snpc", $sender, $args[2], null, $sender->getSkin()->getSkinData());
                                     return true;
                                 }
@@ -113,18 +113,18 @@ class Commands extends Command implements PluginOwned {
                             } else {
                                 if (isset($args[2])) {
                                     NPCManager::getInstance()->spawnNPC(strtolower($args[1]) . "_snpc", $sender, $args[2]);
-                                    $sender->sendMessage(TextFormat::DARK_GREEN . "Creating " . ucfirst($args[1]) . " NPC with nametag $args[2] for you...");
+                                    $sender->sendMessage(TextFormat::DARK_GREEN . "Создание " . ucfirst($args[1]) . " NPC с тегом $args[2] для вас...");
                                     return true;
                                 }
 
                                 NPCManager::getInstance()->spawnNPC(strtolower($args[1]) . "_snpc", $sender);
                             }
-                            $sender->sendMessage(TextFormat::DARK_GREEN . "Creating " . ucfirst($args[1]) . " NPC without nametag for you...");
+                            $sender->sendMessage(TextFormat::DARK_GREEN . "Создание " . ucfirst($args[1]) . " NPC без тега для вас...");
                         } else {
-                            $sender->sendMessage(TextFormat::RED . "Invalid entity type or entity not registered!");
+                            $sender->sendMessage(TextFormat::RED . "Недопустимый тип сущности или сущность не зарегистрирована!");
                         }
                     } else {
-                        $sender->sendMessage(TextFormat::RED . "Usage: /snpc spawn <type> optional: <nametag> <skinUrl>");
+                        $sender->sendMessage(TextFormat::RED . "Использование: /snpc spawn <тип> необязательно: <nametag> <skinUrl>");
                     }
                     break;
                 case "delete":
@@ -139,40 +139,40 @@ class Commands extends Command implements PluginOwned {
 
                         if ($entity instanceof BaseNPC || $entity instanceof CustomHuman) {
                             if ($entity->despawn()) {
-                                $sender->sendMessage(TextFormat::GREEN . "The NPC was successfully removed!");
+                                $sender->sendMessage(TextFormat::GREEN . "NPC был успешно удален!");
                             } else {
-                                $sender->sendMessage(TextFormat::YELLOW . "The NPC was failed removed! (File not found)");
+                                $sender->sendMessage(TextFormat::YELLOW . "Удаление NPC было неудачным! (Файл не найден)");
                             }
                             return true;
                         }
 
-                        $sender->sendMessage(TextFormat::YELLOW . "SimpleNPC Entity with ID: " . $args[1] . " not found!");
+                        $sender->sendMessage(TextFormat::YELLOW . "Сущность SimpleNPC с идентификатором: " . $args[1] . " не найдена!");
                         return true;
                     }
 
                     if (!isset($plugin->removeNPC[$sender->getName()])) {
                         $plugin->removeNPC[$sender->getName()] = true;
-                        $sender->sendMessage(TextFormat::DARK_GREEN . "Hit the npc that you want to delete or remove");
+                        $sender->sendMessage(TextFormat::DARK_GREEN . "Ударьте нпс, которого вы хотите удалить");
                         return true;
                     }
 
                     unset($plugin->removeNPC[$sender->getName()]);
-                    $sender->sendMessage(TextFormat::GREEN . "Remove npc by hitting has been canceled");
+                    $sender->sendMessage(TextFormat::GREEN . "Удаление нпс ударом отменено");
                     break;
                 case "edit":
                 case "manage":
                     if (!$sender instanceof Player) {
-                        $sender->sendMessage("Only player can run this command!");
+                        $sender->sendMessage("Только игрок может выполнить эту команду!");
                         return true;
                     }
 
                     if (!$sender->hasPermission("simplenpc.edit")) {
-                        $sender->sendMessage(TextFormat::RED . "You don't have permission");
+                        $sender->sendMessage(TextFormat::RED . "У тебя нет разрешения");
                         return true;
                     }
 
                     if (!isset($args[1]) || !is_numeric($args[1])) {
-                        $sender->sendMessage(TextFormat::RED . "Usage: /snpc edit <id>");
+                        $sender->sendMessage(TextFormat::RED . "Использование: /snpc edit <id>");
                         return true;
                     }
 
@@ -180,7 +180,7 @@ class Commands extends Command implements PluginOwned {
                     break;
                 case "list":
                     if (!$sender->hasPermission("simplenpc.list")) {
-                        $sender->sendMessage(TextFormat::RED . "You don't have permission");
+                        $sender->sendMessage(TextFormat::RED . "У тебя нет разрешения");
                         return true;
                     }
 
@@ -196,10 +196,10 @@ class Commands extends Command implements PluginOwned {
                     $sender->sendMessage("§cNPC List and Location: (" . count($entityNames) . ")\n §f- " . implode("\n - ", $entityNames));
                     break;
                 case "help":
-                    $sender->sendMessage("\n§7---- ---- ---- - ---- ---- ----\n§eCommand List:\n§2» /snpc spawn <type> <nametag> <skinUrl>\n§2» /snpc edit <id>\n§2» /snpc reload\n§2» /snpc ui\n§2» /snpc remove <id>\n§2» /snpc list\n§7---- ---- ---- - ---- ---- ----");
+                    $sender->sendMessage("\n§7---- ---- ---- - ---- ---- ----\n§eСписок команд:\n§2» /snpc spawn <type> <nametag> <skinUrl>\n§2» /snpc edit <id>\n§2» /snpc reload\n§2» /snpc ui\n§2» /snpc remove <id>\n§2» /snpc list\n§7---- ---- ---- - ---- ---- ----");
                     break;
                 default:
-                    $sender->sendMessage(TextFormat::RED . "Subcommand '$args[0]' not found! Try '/snpc help' for help.");
+                    $sender->sendMessage(TextFormat::RED . "Субкоманда '$args[0]' не найдена! Попробуйте обратиться за помощью к команде '/snpc help'.");
                     break;
             }
         } else {

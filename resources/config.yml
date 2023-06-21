@@ -2,23 +2,23 @@
 # Author: @brokiem (https://github.com/brokiem)
 # Source code: https://github.com/brokiem/SimpleNPC
 
-# Don't edit this version
+# Don't edit this version / Не изменяйте версию
 config-version: 3
 # ---------------------- #
 
-# Enable npc look to players
+# Enable npc look to players / Разрешить нпс смотреть на игроков
 # Default: true
 enable-look-to-players: true
-# Max npc distance to look at players
+# Max npc distance to look at players / Максимальное расстояние между нпс и игроками
 # Default: 8
 max-look-distance: 8
 
-# Enable command cooldown to prevent executing command too fast when hitting npc
+# Enable command cooldown to prevent executing command too fast when hitting npc / Включить задержку команды, чтобы предотвратить слишком быстрое выполнение команды при ударе по нпс
 # Default: true
 enable-command-cooldown: true
-# Coldown executing command when hit the NPC
+# Coldown executing command when hit the NPC / Прекращение выполнения команды при попадании в NPC
 # Default: 1.0 (float)
 command-execute-cooldown: 1.0
 
-# Here you can choose the emote interval. 6-7 seconds are recommended.
+# Here you can choose the emote interval. 6-7 seconds are recommended. / Здесь вы можете выбрать интервал между эмоциями. Рекомендуется 6-7 секунд.
 emote-interval-seconds: 7

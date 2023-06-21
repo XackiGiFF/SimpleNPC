@@ -18,34 +18,34 @@ class ButtonManager {
     public function getUIButtons(): array {
         return [
             "Reload Config" => [
-                "text" => "Reload Config",
+                "text" => "Перезагрузить конфиг",
                 "icon" => null,
                 "command" => "snpc reload",
                 "function" => null
             ], "Spawn NPC" => [
-                "text" => "Spawn NPC",
+                "text" => "Установить NPC",
                 "icon" => null,
                 "command" => null,
                 "function" => "spawnNPC"
             ], "Edit NPC" => [
-                "text" => "Edit NPC",
+                "text" => "Редактирование NPC",
                 "icon" => null,
                 "command" => null,
                 "function" => "editNPC"
             ],
             "Get NPC ID" => [
-                "text" => "Get NPC ID",
+                "text" => "Узнать NPC ID",
                 "icon" => null,
                 "command" =>
                     "snpc id",
                 "function" => null
             ], "Remove NPC" => [
-                "text" => "Remove NPC",
+                "text" => "Удалить NPC",
                 "icon" => null,
                 "command" => "snpc remove",
                 "function" => null
             ], "List NPC" => [
-                "text" => "List NPC",
+                "text" => "Список NPC",
                 "icon" => null,
                 "command" => null,
                 "function" => "npcList"
@@ -56,152 +56,152 @@ class ButtonManager {
     public function getEditButtons(): array {
         return [
             "Add Command" => [
-                "text" => "Add Command",
+                "text" => "Добавить команду",
                 "icon" => null,
                 "element" => [
                     "id" => "addcmd",
-                    "element" => new Input("Use {player} for player name, and don't use slash [/]\nYou can also use rca command\n\nEnter the command here. (Command executed by console)")
+                    "element" => new Input("Используйте {player} для имени игрока, но не используйте слеш [/]\nВы также можете использовать команду /rca\n\n\nВведите команду здесь. (Команда выполняется консолью)")
                 ], "additional" => []
             ], "Remove Command" => [
-                "text" => "Remove Command",
+                "text" => "Удалить команду",
                 "icon" => null,
                 "element" => [
                     "id" => "removecmd",
-                    "element" => new Input("Enter the command here")
+                    "element" => new Input("Введите здесь команду")
                 ], "additional" => []
             ], "Change Nametag" => [
-                "text" => "Change Nametag",
+                "text" => "Изменить тег",
                 "icon" => null,
                 "element" => [
-                    "id" => "changenametag", "element" => new Input("Enter the new nametag here")
+                    "id" => "changenametag", "element" => new Input("Введите новый тег здесь")
                 ], "additional" => []
             ], "Change Skin" => [
-                "text" => "Change Skin\n(Only Human NPC)",
+                "text" => "Изменить скин\n(Только для Human NPC)",
                 "icon" => null, "element" => [
                     "id" => "changeskin",
-                    "element" => new Input("Enter the skin URL or online player name")
+                    "element" => new Input("Введите URL-адрес скина или имя онлайн-игрока")
                 ], "additional" => []
             ], "Change Cape" => [
-                "text" => "Change Cape\n(Only Human NPC)",
+                "text" => "Изменить плащ\n(Только для Human NPC)",
                 "icon" => null,
                 "element" => [
                     "id" => "changecape",
-                    "element" => new Input("Enter the Cape URL or online player name")
+                    "element" => new Input("Введите URL-адрес плаща или имя онлайн-игрока")
                 ], "additional" => []
             ], "Change Scale/Size" => [
-                "text" => "Change Scale/Size",
+                "text" => "Изменить размер",
                 "icon" => null,
                 "element" => [
                     "id" => "changescale",
-                    "element" => new Input("Enter the new scale number (min=0.01")
+                    "element" => new Input("Введите новый размер (мин.=0.01")
                 ],
                 "additional" => []
             ], "Set Armor" => [
-                "text" => "Set Armor\n(You have to wear the armor)",
+                "text" => "Установить броню\n(Вы должны надеть броню)",
                 "icon" => null,
                 "element" => [],
                 "additional" => [
                     "form" => "editUI",
                     "button" => [
-                        "text" => "Set Armor\n(You have to wear the armor)",
+                        "text" => "Установить броню\n(Вы должны надеть броню)",
                         "icon" => null,
                         "function" => "setArmor",
                         "force" => true
                     ]
                 ]
             ], "Set Held Item" => [
-                "text" => "Set Held Item\n(You have to hold the item)",
+                "text" => "Установить удерживаемый предмет\n (Вы должны удерживать предмет)",
                 "icon" => null,
                 "element" => [],
                 "additional" => [
                     "form" => "editUI",
                     "button" => [
-                        "text" => "Set Held Item\n(You have to hold the item)",
+                        "text" => "Установить удерживаемый предмет\n(Вы должны удерживать предмет)",
                         "icon" => null,
                         "function" => "setHeld",
                         "force" => true
                     ]
                 ]
             ], "Disable Rotate" => [
-                "text" => "Disable Rotate\n(Look to player)",
+                "text" => "Отключить поворот\n(Смотреть на игрока)",
                 "icon" => null,
                 "element" => [],
                 "additional" => [
                     "form" => "editUI",
                     "button" => [
-                        "text" => "Disable Rotate\n(Look to player)",
+                        "text" => "Отключить поворот\n(Смотреть на игрока)",
                         "icon" => null,
                         "function" => "disableRotate",
                         "force" => true
                     ]
                 ]
             ], "Enable Rotate" => [
-                "text" => "Enable Rotate\n(Look to player)",
+                "text" => "Включить поворот\n(Смотреть на игрока)",
                 "icon" => null,
                 "element" => [],
                 "additional" => [
                     "form" => "editUI",
                     "button" => [
-                        "text" => "Enable Rotate\n(Look to player)",
+                        "text" => "Включить поворот\n(Смотреть на игрока)",
                         "icon" => null,
                         "function" => "EnableRotation",
                         "force" => true
                     ]
                 ]
             ], "Show Nametag" => [
-                "text" => "Show Nametag",
+                "text" => "Показать тег",
                 "icon" => null,
                 "element" => [],
                 "additional" => [
                     "form" => "editUI",
                     "button" => [
-                        "text" => "Show Nametag",
+                        "text" => "Показать тег",
                         "icon" => null,
                         "function" => "showNametag",
                         "force" => true
                     ]
                 ]
             ], "Hide Nametag" => [
-                "text" => "Hide Nametag",
+                "text" => "Скрыть тег",
                 "icon" => null,
                 "element" => [],
                 "additional" => [
                     "form" => "editUI",
                     "button" => [
-                        "text" => "Hide Nametag",
+                        "text" => "Скрыть тег",
                         "icon" => null,
                         "function" => "hideNametag",
                         "force" => true
                     ]
                 ]
             ], "Set Click-Emote" => [
-                "text" => "Set Click-Emote",
+                "text" => "Установить эмоцию по клику",
                 "icon" => null,
                 "element" => [],
                 "additional" => [
                     "form" => "editUI",
                     "button" => [
-                        "text" => "Set Click-Emote",
+                        "text" => "Установить эмоцию по клику",
                         "icon" => null,
                         "function" => "setClickEmote",
                         "force" => true
                     ]
                 ]
             ], "Set Emote" => [
-                "text" => "Set Emote",
+                "text" => "Установить эмоцию",
                 "icon" => null,
                 "element" => [],
                 "additional" => [
                     "form" => "editUI",
                     "button" => [
-                        "text" => "Set Emote",
+                        "text" => "Установить эмоцию",
                         "icon" => null,
                         "function" => "setEmote",
                         "force" => true
                     ]
                 ]
             ], "Command List" => [
-                "text" => "Command List",
+                "text" => "Список команд",
                 "icon" => null,
                 "element" => [],
                 "additional" => [
@@ -214,7 +214,7 @@ class ButtonManager {
                     ]
                 ]
             ], "Teleport" => [
-                "text" => "Teleport",
+                "text" => "Телепорт",
                 "icon" => null,
                 "element" => [],
                 "additional" => [

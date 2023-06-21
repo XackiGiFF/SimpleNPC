@@ -85,7 +85,7 @@ class URLToSkinTask extends AsyncTask {
         $skinData = $this->getResult();
 
         if ($skinData === null) {
-            $player->sendMessage(TextFormat::RED . "Set Skin failed! Invalid link detected (the link doesn't contain images)");
+            $player->sendMessage(TextFormat::RED . "Установить скин не удалось! Обнаружена недействительная ссылка (ссылка не содержит изображений)");
             return;
         }
 
