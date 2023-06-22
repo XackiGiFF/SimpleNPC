@@ -8,8 +8,8 @@ projects:
     path: ""
     icon: "/assets/icon.png"
     libs:
-      - src: brokiem-pm-pl/EasyUI/libEasyUI
-        version: 3.0.0
+      - src: dresnite/EasyUI/libEasyUI
+        version: 1.0.3
       - src: brokiem-pm-pl/UpdateChecker/UpdateChecker
         version: ^1.0.0
         branch: "pm4"
