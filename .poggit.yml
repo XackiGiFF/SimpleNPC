@@ -1,8 +1,8 @@
 --- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/brokiem/SimpleNPC
 branches:
   - master
-  - pm4-new
-  - use-nbt
+  - pm5
+  - pm5-rus
 projects:
   SimpleNPC:
     path: ""
@@ -13,4 +13,5 @@ projects:
       - src: brokiem-pm-pl/UpdateChecker/UpdateChecker
         version: ^1.0.0
         branch: "pm4"
+        
 ...
