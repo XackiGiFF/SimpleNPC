@@ -10,8 +10,4 @@ projects:
     libs:
       - src: dresnite/EasyUI/libEasyUI
         version: 1.0.3
-      - src: brokiem-pm-pl/UpdateChecker/UpdateChecker
-        version: ^1.0.0
-        branch: "pm4"
-        
 ...
