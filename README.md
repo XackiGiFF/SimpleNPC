@@ -62,3 +62,6 @@ Saweria - https://saweria.co/brokiem
 
 <img src="assets/simplenpc.png" alt="">
 <img src="assets/1.17-npc.png" alt="">
+
+# Update
+Update plugin for API 5.0.0 PMMP
