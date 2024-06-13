@@ -1,9 +1,7 @@
 --- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/supercrafter333/SimpleNPC
 build-by-default: true
 branches:
-  - master
   - pm5
-  - pm5-rus
 projects:
   SimpleNPC:
     path: ""
